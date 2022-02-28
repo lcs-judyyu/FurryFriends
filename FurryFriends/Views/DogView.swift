@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DogView: View {
     
     // MARK: Stored properties
     
@@ -52,10 +52,10 @@ struct ContentView: View {
     
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct DogView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ContentView()
+            DogView()
         }
     }
 }
