@@ -51,65 +51,61 @@ struct DogView: View {
             
             VStack(spacing: 0) {
                 
+                // Shows the main image
+                RemoteImageView(fromURL: currentImage)
+                    .padding(15)
+                    .border(Color.gray, width: 4)
+                    .padding()
+                
                 ZStack {
-                    // Shows the main image
-                    RemoteImageView(fromURL: currentImage)
-                        .padding(15)
-                        .border(Color.gray, width: 4)
-                        .padding()
                     
-                    VStack {
+                    //Button for regenerating an image
+                    Button(action: {
+                        Task {
+                            // Call the function to get a new image
+                            await loadNewImage()
+                        }
+                        
+                    }, label: {
+                        Text("New Image")
+                            .font(.title2)
+                    })
+                        .buttonStyle(GrowingButton())
+                    
+                    HStack {
                         Spacer()
                         
-                        HStack {
-                            Spacer()
-                            
-                            //like image
-                            Image(systemName: "heart.fill")
-                                .font(.system(size: 50))
-
-                                .clipShape(Capsule())
-                                .padding(20)
-                            //                      CONDITION                           true                 false
-                                .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"))
-                                .onTapGesture {
-                                    // Only add to the list if it is not already there
-                                    if currentImageAddedToFavourites == false {
-                                        if favourites.contains(currentImageURL) {
-                                            
-                                            //repeatedFavourite = true
-                                            currentImageAddedToFavourites = false
-                                        } else {
-                                            
-                                            // Adds the current image to the list
-                                            //favourites.append(currentImage)
-                                            
-                                            // Record that we have marked this as a favourite
-                                            currentImageAddedToFavourites = true
-                                        }
+                        //like image
+                        Image(systemName: "heart.circle")
+                            .font(.system(size: 50))
+                        
+                            .clipShape(Capsule())
+                            .padding(20)
+                        //                      CONDITION                           true                 false
+                            .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"))
+                            .onTapGesture {
+                                // Only add to the list if it is not already there
+                                if currentImageAddedToFavourites == false {
+                                    if favourites.contains(currentImageURL) {
                                         
-                                    } else {
-                                        //favourites.removeLast()
+                                        //repeatedFavourite = true
                                         currentImageAddedToFavourites = false
+                                    } else {
+                                        
+                                        // Adds the current image to the list
+                                        //favourites.append(currentImage)
+                                        
+                                        // Record that we have marked this as a favourite
+                                        currentImageAddedToFavourites = true
                                     }
+                                    
+                                } else {
+                                    //favourites.removeLast()
+                                    currentImageAddedToFavourites = false
                                 }
                             }
                         }
                     }
-                
-                //Button for regenerating an image
-                Button(action: {
-                    Task {
-                        // Call the function to get a new image
-                        await loadNewImage()
-                    }
-                    
-                }, label: {
-                    Text("New Image")
-                        .font(.title2)
-                })
-                    .padding()
-                    .buttonStyle(GrowingButton())
                 
                 HStack {
                     Text("Favourites")
