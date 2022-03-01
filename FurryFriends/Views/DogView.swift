@@ -32,6 +32,7 @@ struct DogView: View {
     // Address for main image
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
+    @State var currentImageURL: DogImage = DogImage(message: "")
     
     // @State var showLikeAnimation: Bool = false
     
@@ -65,7 +66,7 @@ struct DogView: View {
                             
                             //like image
                             Image(systemName: "heart.circle")
-                                .font(.title2)
+                                .font(.largeTitle)
                             //                      CONDITION                        true   false
                                 .foregroundColor(currentImageAddedToFavourites == true ? .red : .secondary)
                                 .onTapGesture {
@@ -119,11 +120,16 @@ struct DogView: View {
                 
                 // Example images for each type of pet
                 //let remoteCatImage = "https://purr.objects-us-east-1.dream.io/i/JJiYI.jpg"
-                let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
+                //let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
                 
                 // Replaces the transparent pixel image with an actual image of an animal
                 // Adjust according to your preference ☺️
-                currentImage = URL(string: remoteDogImage)!
+                //currentImage = URL(string: remoteDogImage)!
+                
+                // Load an image from the endpoint!
+                await loadNewImage()
+                
+                print("I tried to load a new image")
                 
             }
             .navigationTitle("Furry Friends")
@@ -158,7 +164,10 @@ struct DogView: View {
             //                                 DATA TYPE TO DECODE TO
             //                                         |
             //                                         V
-            //currentImage = try JSONDecoder().decode(DogImage.self, from: data)
+            currentImageURL = try JSONDecoder().decode(DogImage.self, from: data)
+            
+            //put the message in the structure into a URL
+            currentImage = URL(string: currentImageURL.message)!
             
             // Reset the Boolean value that tracks whether the current image is a favourite
             currentImageAddedToFavourites = false
