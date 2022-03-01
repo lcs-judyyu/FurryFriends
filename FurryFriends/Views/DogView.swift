@@ -65,10 +65,14 @@ struct DogView: View {
                             Spacer()
                             
                             //like image
-                            Image(systemName: "heart.circle")
-                                .font(.largeTitle)
+                            Image(systemName: "pawprint.fill")
+                                .font(.system(size: 60))
+                                .background(Color.white.opacity(1.0))
+                                .clipShape(Capsule())
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 20)
                             //                      CONDITION                        true   false
-                                .foregroundColor(currentImageAddedToFavourites == true ? .red : .secondary)
+                                .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : .secondary)
                                 .onTapGesture {
                                     
                                     // Only add to the list if it is not already there
