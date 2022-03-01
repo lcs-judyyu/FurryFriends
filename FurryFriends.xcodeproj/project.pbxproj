@@ -81,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				8134B14427CA4862004DEB85 /* FurryFriendsApp.swift */,
+				5A5D4BFB27CD19F400507AAE /* Animations */,
+				8134B15727CA5B63004DEB85 /* Helpers */,
 				5A5D4BF827CD0F1900507AAE /* Model */,
 				8134B15227CA55BC004DEB85 /* Views */,
 				8134B14827CA4863004DEB85 /* Assets.xcassets */,
@@ -100,8 +102,6 @@
 		8134B15227CA55BC004DEB85 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5A5D4BFB27CD19F400507AAE /* Animations */,
-				8134B15727CA5B63004DEB85 /* Helpers */,
 				8134B14627CA4862004DEB85 /* DogView.swift */,
 			);
 			path = Views;
