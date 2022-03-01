@@ -32,21 +32,20 @@ struct DogView: View {
     // Address for main image
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
+    
     @State var currentImageURL: DogImage = DogImage(message: "")
     
-    // @State var showLikeAnimation: Bool = false
-    
-    // This will keep track of the list of favourite
+    // keep track of the list of favourite
     @State var favourites: [DogImage] = []   // empty list to start
     
-    // This will let us know whether the current exists as a favourite
+    // Does the current exists as a favourite?
     @State var currentImageAddedToFavourites: Bool = false
     
     // MARK: Computed properties
     var body: some View {
         
         ZStack {
-            Color.yellow.opacity(0.3)
+            Color.yellow.opacity(0.2)
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
@@ -55,7 +54,6 @@ struct DogView: View {
                 RemoteImageView(fromURL: currentImage)
                     .padding(15)
                     .border(Color.gray, width: 4)
-                    .padding()
                 
                 ZStack {
                     
@@ -84,6 +82,7 @@ struct DogView: View {
                         //                      CONDITION                           true                 false
                             .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"))
                             .onTapGesture {
+                                
                                 // Only add to the list if it is not already there
                                 if currentImageAddedToFavourites == false {
                                     if favourites.contains(currentImageURL) {
@@ -93,7 +92,8 @@ struct DogView: View {
                                     } else {
                                         
                                         // Adds the current image to the list
-                                        //favourites.append(currentImage)
+                                        currentImage = URL(string: currentImageURL.message)!
+                                        favourites.append(currentImageURL)
                                         
                                         // Record that we have marked this as a favourite
                                         currentImageAddedToFavourites = true
@@ -116,12 +116,15 @@ struct DogView: View {
                 }
                 
                 // Iterate over the list of favourites
-                // As we iterate, each individual favourite is
-                // accessible via "currentFavourite"
+                // each individual favourite is accessible via "currentFavourite"
                 List(favourites, id: \.self) { currentFavourite in
-                    RemoteImageView(fromURL: currentImage)
+                    
+                    RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 400.0, height: 50.0)
+                
                 }
-                .listStyle(.insetGrouped)
+                .listStyle(.automatic)
                 
                 // Push main image to top of screen
                 Spacer()
@@ -129,22 +132,18 @@ struct DogView: View {
             }
             // Runs once when the app is opened
             .task {
-                
+        
                 // Example images for each type of pet
                 //let remoteCatImage = "https://purr.objects-us-east-1.dream.io/i/JJiYI.jpg"
                 //let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
                 
-                // Replaces the transparent pixel image with an actual image of an animal
-                // Adjust according to your preference ☺️
-                //currentImage = URL(string: remoteDogImage)!
-                
-                // Load an image from the endpoint!
+                // Load an image from the endpoint
                 await loadNewImage()
                 
                 print("I tried to load a new image")
                 
             }
-            .navigationTitle("Furry Friends")
+            .navigationTitle("Dogs 🐶")
         }
         
     }
