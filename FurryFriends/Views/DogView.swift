@@ -33,7 +33,7 @@ struct DogView: View {
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
     
-   // @State var showLikeAnimation: Bool = false
+    // @State var showLikeAnimation: Bool = false
     
     // This will keep track of the list of favourite
     @State var favourites: [DogImage] = []   // empty list to start
@@ -63,14 +63,25 @@ struct DogView: View {
                         HStack {
                             Spacer()
                             
-                            //Like animation
-                            LottieView(animationNamed: "84830-like-no-background")
-                        //        .opacity(showLikeAnimation == true ? 1.0 : 0.0)
-                                .frame(width: 150, height: 150, alignment: .center)
-                                .padding()
+                            //like image
+                            Image(systemName: "heart.circle")
+                            //                      CONDITION                        true   false
+                                .foregroundColor(currentImageAddedToFavourites == true ? .red : .secondary)
+                                .onTapGesture {
+                                    
+                                    // Only add to the list if it is not already there
+                                    if currentImageAddedToFavourites == false {
+                                        
+                                        // Adds the current image to the list
+                                        
+                                        // Record that we have marked this as a favourite
+                                        currentImageAddedToFavourites = true
+                                        
+                                    }
+                                }
+                            }
                         }
                     }
-                }
                 
                 //Button for regenerating an image
                 Button(action: {
@@ -99,7 +110,7 @@ struct DogView: View {
                 
                 // Push main image to top of screen
                 Spacer()
-
+                
             }
             // Runs once when the app is opened
             .task {
@@ -111,9 +122,9 @@ struct DogView: View {
                 // Replaces the transparent pixel image with an actual image of an animal
                 // Adjust according to your preference ☺️
                 currentImage = URL(string: remoteDogImage)!
-                            
+                
             }
-        .navigationTitle("Furry Friends")
+            .navigationTitle("Furry Friends")
         }
         
     }
@@ -147,8 +158,7 @@ struct DogView: View {
             //                                         V
             //currentImage = try JSONDecoder().decode(DogImage.self, from: data)
             
-            // Reset the flag that tracks whether the current joke
-            // is a favourite
+            // Reset the Boolean value that tracks whether the current image is a favourite
             currentImageAddedToFavourites = false
             
         } catch {
@@ -157,7 +167,7 @@ struct DogView: View {
             // populates
             print(error)
         }
-
+        
     }
     
 }
