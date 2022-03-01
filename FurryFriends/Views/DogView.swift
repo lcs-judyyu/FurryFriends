@@ -65,6 +65,7 @@ struct DogView: View {
                             
                             //like image
                             Image(systemName: "heart.circle")
+                                .font(.title2)
                             //                      CONDITION                        true   false
                                 .foregroundColor(currentImageAddedToFavourites == true ? .red : .secondary)
                                 .onTapGesture {
@@ -96,6 +97,7 @@ struct DogView: View {
                 HStack {
                     Text("Favourites")
                         .bold()
+                        .padding(.horizontal, 10)
                     
                     Spacer()
                 }
