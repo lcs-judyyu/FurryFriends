@@ -65,24 +65,32 @@ struct DogView: View {
                             Spacer()
                             
                             //like image
-                            Image(systemName: "pawprint.fill")
-                                .font(.system(size: 60))
-                                .background(Color.white.opacity(1.0))
+                            Image(systemName: "heart.fill")
+                                .font(.system(size: 50))
+
                                 .clipShape(Capsule())
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 20)
-                            //                      CONDITION                        true   false
-                                .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : .secondary)
+                                .padding(20)
+                            //                      CONDITION                           true                 false
+                                .foregroundColor(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"))
                                 .onTapGesture {
-                                    
                                     // Only add to the list if it is not already there
                                     if currentImageAddedToFavourites == false {
+                                        if favourites.contains(currentImageURL) {
+                                            
+                                            //repeatedFavourite = true
+                                            currentImageAddedToFavourites = false
+                                        } else {
+                                            
+                                            // Adds the current image to the list
+                                            //favourites.append(currentImage)
+                                            
+                                            // Record that we have marked this as a favourite
+                                            currentImageAddedToFavourites = true
+                                        }
                                         
-                                        // Adds the current image to the list
-                                        
-                                        // Record that we have marked this as a favourite
-                                        currentImageAddedToFavourites = true
-                                        
+                                    } else {
+                                        //favourites.removeLast()
+                                        currentImageAddedToFavourites = false
                                     }
                                 }
                             }
@@ -91,10 +99,14 @@ struct DogView: View {
                 
                 //Button for regenerating an image
                 Button(action: {
+                    Task {
+                        // Call the function to get a new image
+                        await loadNewImage()
+                    }
                     
                 }, label: {
                     Text("New Image")
-                        .font(.title)
+                        .font(.title2)
                 })
                     .padding()
                     .buttonStyle(GrowingButton())
@@ -102,7 +114,7 @@ struct DogView: View {
                 HStack {
                     Text("Favourites")
                         .bold()
-                        .padding(.horizontal, 10)
+                        .padding(10)
                     
                     Spacer()
                 }
