@@ -53,7 +53,7 @@ struct DogView: View {
                 // Shows the main image
                 RemoteImageView(fromURL: currentImage)
                     .padding(15)
-                    .border(Color("pinkNotLike"), width: 4)
+                    .border(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"), width: 4)
                 
                 ZStack {
                     
@@ -118,15 +118,28 @@ struct DogView: View {
                 
                 // Iterate over the list of favourites
                 // each individual favourite is accessible via "currentFavourite"
-                List(favourites, id: \.self) { currentFavourite in
+                List {
                     
-                    RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
-                        .scaledToFill()
-                        .frame(width: 300.0, height: 50.0, alignment: .center)
-                        .clipped()
-                
+                    ForEach(favourites, id: \.self) { currentFavourite in
+                        
+                        NavigationLink(destination: {
+                            
+                            //DetailView(item: currentItem)
+                            
+                        }, label: {
+                            
+                            RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                                .scaledToFill()
+                                .frame(width: 300.0, height: 50.0, alignment: .center)
+                                .clipped()
+                            
+                        })
+                            .listRowBackground(Color.orange.opacity(0.2))
+                    }
+                    .onDelete(perform: delete)
                 }
-                .listStyle(.automatic)
+                .listStyle(.plain)
+                
                 
                 // Push main image to top of screen
                 Spacer()
@@ -194,6 +207,9 @@ struct DogView: View {
         
     }
     
+    func delete(at offsets: IndexSet) {
+            favourites.remove(atOffsets: offsets)
+        }
 }
 
 struct DogView_Previews: PreviewProvider {
