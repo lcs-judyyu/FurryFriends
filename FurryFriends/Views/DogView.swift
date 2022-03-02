@@ -124,9 +124,18 @@ struct DogView: View {
                         
                         NavigationLink(destination: {
                             
-                            RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
-                                .scaledToFit()
-                                .padding()
+                            ZStack {
+                                Color.yellow.opacity(0.2)
+                                    .edgesIgnoringSafeArea(.all)
+                                
+                                VStack(alignment: .center) {
+                                    RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                                        .scaledToFit()
+                                        .padding()
+                                    
+                                    Spacer()
+                                }
+                            }
                             
                         }, label: {
                             
@@ -209,6 +218,7 @@ struct DogView: View {
         
     }
     
+    //a function to delete items in the list
     func delete(at offsets: IndexSet) {
             favourites.remove(atOffsets: offsets)
         }
