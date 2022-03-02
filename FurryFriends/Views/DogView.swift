@@ -86,9 +86,9 @@ struct DogView: View {
                                 // Only add to the list if it is not already there
                                 if currentImageAddedToFavourites == false {
                                     if favourites.contains(currentImageURL) {
-                                        
-                                        //repeatedFavourite = true
+
                                         currentImageAddedToFavourites = false
+                                        
                                     } else {
                                         
                                         // Adds the current image to the list
@@ -100,7 +100,7 @@ struct DogView: View {
                                     }
                                     
                                 } else {
-                                    //favourites.removeLast()
+                                    favourites.removeLast()
                                     currentImageAddedToFavourites = false
                                 }
                             }
