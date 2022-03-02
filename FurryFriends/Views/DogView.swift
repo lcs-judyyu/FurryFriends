@@ -110,7 +110,8 @@ struct DogView: View {
                 HStack {
                     Text("Favourites")
                         .bold()
-                        .padding(10)
+                        .padding(.leading)
+                        .padding(.bottom, 10)
                     
                     Spacer()
                 }
