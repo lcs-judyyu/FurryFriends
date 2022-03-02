@@ -53,7 +53,7 @@ struct DogView: View {
                 // Shows the main image
                 RemoteImageView(fromURL: currentImage)
                     .padding(15)
-                    .border(Color.gray, width: 4)
+                    .border(Color("pinkNotLike"), width: 4)
                 
                 ZStack {
                     
@@ -121,8 +121,9 @@ struct DogView: View {
                 List(favourites, id: \.self) { currentFavourite in
                     
                     RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 400.0, height: 50.0)
+                        .scaledToFill()
+                        .frame(width: 300.0, height: 50.0, alignment: .center)
+                        .clipped()
                 
                 }
                 .listStyle(.automatic)
