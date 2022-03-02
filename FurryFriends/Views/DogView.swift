@@ -124,17 +124,19 @@ struct DogView: View {
                         
                         NavigationLink(destination: {
                             
-                            //DetailView(item: currentItem)
+                            RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                                .scaledToFit()
+                                .padding()
                             
                         }, label: {
                             
                             RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
                                 .scaledToFill()
-                                .frame(width: 300.0, height: 50.0, alignment: .center)
+                                .frame(width: 320.0, height: 50.0, alignment: .center)
                                 .clipped()
                             
                         })
-                            .listRowBackground(Color.orange.opacity(0.2))
+                            .listRowBackground(Color.orange.opacity(0.4))
                     }
                     .onDelete(perform: delete)
                 }
