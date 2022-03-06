@@ -56,7 +56,7 @@ struct QuizView: View {
                     .font(.system(size: 80))
             }
             .padding(.bottom, 20)
-            .opacity(startQuiz == false ? 1.0 : 0.0)
+            .opacity(startQuiz == false && questionNumber == 1 ? 1.0 : 0.0)
             
             VStack {
                 RemoteImageView(fromURL: currentDogImage)
@@ -75,9 +75,13 @@ struct QuizView: View {
                     currentCatImageSelected = false
                     
                     if currentDogImageSelected == true {
-                        catIsSelected += 1
-                    } else {
                         dogIsSelected += 1
+                    } else {
+                        catIsSelected += 1
+                    }
+                    
+                    if questionNumber > 10 {
+                        startQuiz = false
                     }
                     
                     Task {
@@ -104,17 +108,26 @@ struct QuizView: View {
                     }
             }
             .padding(.bottom, 20)
-            .opacity(startQuiz == true ? 1.0 : 0.0)
+            .opacity(startQuiz == true && questionNumber < 11 ? 1.0 : 0.0)
             
             VStack {
                 if dogIsSelected > 5 {
-                    Text("")
+                    Text("You are a ") +
+                    Text("DOG 🐶").underline().font(.largeTitle)
+                    Text(" person")
                 } else if dogIsSelected == 5 {
-                    Text("")
+                    Text("You like both ")
+                    Text("DOG 🐶").underline().font(.largeTitle)
+                    Text(" and ")
+                    Text("CAT 🐱").underline().font(.largeTitle)
                 } else {
-                    Text("")
+                    Text("You are a ")
+                    Text("CAT 🐱").underline().font(.largeTitle)
+                    Text(" person")
                 }
             }
+            .font(.title)
+            .opacity(startQuiz == false && questionNumber > 10 ? 1.0 : 0.0)
         }
         .task {
             await loadNewDogImage()
