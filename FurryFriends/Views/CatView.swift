@@ -78,11 +78,14 @@ struct CatView: View {
                                         
                                         // Record that we have marked this as a favourite
                                         currentImageAddedToFavourites = true
+                                        
+                                        persistFavourites()
                                     }
                                     
                                 } else {
                                     favourites.removeLast()
                                     currentImageAddedToFavourites = false
+                                    persistFavourites()
                                 }
                             }
                     }
@@ -210,6 +213,7 @@ struct CatView: View {
     //a function to delete items in the list
     func delete(at offsets: IndexSet) {
         favourites.remove(atOffsets: offsets)
+        persistFavourites()
     }
     
     //save data permanently
