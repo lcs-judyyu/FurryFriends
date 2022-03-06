@@ -34,10 +34,7 @@ struct CatView: View {
             
             VStack(spacing: 0) {
                 
-                // Shows the main image
-                RemoteImageView(fromURL: currentImage)
-                    .padding(15)
-                    .border(currentImageAddedToFavourites == true ? Color("pinkLike") : Color("pinkNotLike"), width: 4)
+                MainImageView(currentImage: currentImage, currentImageAddedToFavourites: $currentImageAddedToFavourites)
                 
                 ZStack {
                     
