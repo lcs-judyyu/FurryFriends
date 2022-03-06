@@ -70,7 +70,7 @@ struct CatView: View {
                                 // Only add to the list if it is not already there
                                 if currentImageAddedToFavourites == false {
                                     if favourites.contains(currentImageURL) {
-
+                                        
                                         currentImageAddedToFavourites = false
                                         
                                     } else {
@@ -88,8 +88,8 @@ struct CatView: View {
                                     currentImageAddedToFavourites = false
                                 }
                             }
-                        }
                     }
+                }
                 
                 HStack {
                     Text("Favourites")
@@ -129,6 +129,7 @@ struct CatView: View {
                                 .clipped()
                             
                         })
+                            .listRowSeparatorTint(Color.orange)
                             .listRowBackground(Color.orange.opacity(0.4))
                     }
                     .onDelete(perform: delete)
@@ -142,7 +143,7 @@ struct CatView: View {
             }
             // Runs once when the app is opened
             .task {
-        
+                
                 // Example images for cat
                 //let remoteCatImage = "https://purr.objects-us-east-1.dream.io/i/JJiYI.jpg"
                 
@@ -218,8 +219,8 @@ struct CatView: View {
     
     //a function to delete items in the list
     func delete(at offsets: IndexSet) {
-            favourites.remove(atOffsets: offsets)
-        }
+        favourites.remove(atOffsets: offsets)
+    }
     
     //save data permanently
     func persistFavourites() {
@@ -251,7 +252,7 @@ struct CatView: View {
             print(error.localizedDescription)
         }
     }
-
+    
     //function for reloading the list of favourites
     func loadFavourites() {
         let filename = getDocumentsDirectory().appendingPathComponent(savedFavouriteCatsLabel)

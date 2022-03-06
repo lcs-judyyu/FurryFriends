@@ -147,6 +147,7 @@ struct DogView: View {
                                 .clipped()
                             
                         })
+                            .listRowSeparatorTint(Color.orange)
                             .listRowBackground(Color.orange.opacity(0.4))
                     }
                     .onDelete(perform: delete)
@@ -269,7 +270,7 @@ struct DogView: View {
             print(error.localizedDescription)
         }
     }
-
+    
     //function for reloading the list of favourites
     func loadFavourites() {
         let filename = getDocumentsDirectory().appendingPathComponent(savedFavouriteDogsLabel)
