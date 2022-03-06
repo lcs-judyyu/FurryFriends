@@ -1,31 +1,13 @@
 //
-//  ContentView.swift
+//  CatView.swift
 //  FurryFriends
 //
-//  Created by Russell Gordon on 2022-02-26.
+//  Created by Judy Yu on 2022-03-05.
 //
 
 import SwiftUI
 
-//button style
-struct GrowingButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(.vertical, 10)
-            .padding(.horizontal, 15)
-            .background(configuration.isPressed ? Color.orange.opacity(0.5) : Color.orange.opacity(0.2))
-            .foregroundColor(.black)
-            .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.orange, lineWidth: 2)
-            )
-            .scaleEffect(configuration.isPressed ? 1.06 : 1)
-            .animation(.easeOut(duration: 0.3), value: configuration.isPressed)
-    }
-}
-
-struct DogView: View {
+struct CatView: View {
     
     // MARK: Stored properties
     
@@ -33,10 +15,10 @@ struct DogView: View {
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
     
-    @State var currentImageURL: DogImage = DogImage(message: "")
+    @State var currentImageURL: CatImage = CatImage(file: "")
     
     // keep track of the list of favourite
-    @State var favourites: [DogImage] = []   // empty list to start
+    @State var favourites: [CatImage] = []   // empty list to start
     
     // Does the current exists as a favourite?
     @State var currentImageAddedToFavourites: Bool = false
@@ -92,7 +74,7 @@ struct DogView: View {
                                     } else {
                                         
                                         // Adds the current image to the list
-                                        currentImage = URL(string: currentImageURL.message)!
+                                        currentImage = URL(string: currentImageURL.file)!
                                         favourites.append(currentImageURL)
                                         
                                         // Record that we have marked this as a favourite
@@ -129,7 +111,7 @@ struct DogView: View {
                                     .edgesIgnoringSafeArea(.all)
                                 
                                 VStack(alignment: .center) {
-                                    RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                                    RemoteImageView(fromURL: URL(string: currentFavourite.file)!)
                                         .scaledToFit()
                                         .padding()
                                     
@@ -139,7 +121,7 @@ struct DogView: View {
                             
                         }, label: {
                             
-                            RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                            RemoteImageView(fromURL: URL(string: currentFavourite.file)!)
                                 .scaledToFill()
                                 .frame(width: 320.0, height: 50.0, alignment: .center)
                                 .clipped()
@@ -159,8 +141,8 @@ struct DogView: View {
             // Runs once when the app is opened
             .task {
         
-                // Example images for dog
-                //let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
+                // Example images for cat
+                //let remoteCatImage = "https://purr.objects-us-east-1.dream.io/i/JJiYI.jpg"
                 
                 // Load an image from the endpoint
                 await loadNewImage()
@@ -168,7 +150,7 @@ struct DogView: View {
                 print("I tried to load a new image")
                 
             }
-            .navigationTitle("Dogs 🐶")
+            .navigationTitle("Cats 🐱")
         }
         
     }
@@ -177,7 +159,7 @@ struct DogView: View {
     //create a funtion to load new image
     func loadNewImage() async {
         // Assemble the URL that points to the endpoint
-        let url = URL(string: "https://dog.ceo/api/breeds/image/random")!
+        let url = URL(string: "https://aws.random.cat/meow")!
         
         // Define the type of data we want from the endpoint
         // Configure the request to the web site
@@ -200,10 +182,10 @@ struct DogView: View {
             //                                 DATA TYPE TO DECODE TO
             //                                         |
             //                                         V
-            currentImageURL = try JSONDecoder().decode(DogImage.self, from: data)
+            currentImageURL = try JSONDecoder().decode(CatImage.self, from: data)
             
-            //put the message in the structure into a URL
-            currentImage = URL(string: currentImageURL.message)!
+            //put the file in the structure into a URL
+            currentImage = URL(string: currentImageURL.file)!
             
             // Reset the Boolean value that tracks whether the current image is a favourite
             currentImageAddedToFavourites = false
@@ -223,10 +205,10 @@ struct DogView: View {
         }
 }
 
-struct DogView_Previews: PreviewProvider {
+struct CatView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DogView()
+            CatView()
         }
     }
 }

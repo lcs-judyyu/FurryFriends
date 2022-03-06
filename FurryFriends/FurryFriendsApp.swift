@@ -11,8 +11,17 @@ import SwiftUI
 struct FurryFriendsApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            TabView {
+                
                 DogView()
+                    .tabItem {
+                        Text("🐶")
+                    }
+                
+                CatView()
+                    .tabItem {
+                        Text("🐱")
+                    }
             }
         }
     }

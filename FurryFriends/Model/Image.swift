@@ -11,6 +11,6 @@ struct DogImage: Decodable, Hashable, Encodable {
     let message: String
 }
 
-//struct CatImage: Decodable, Hashable, Encodable {
-//    let file: String
-//}
+struct CatImage: Decodable, Hashable, Encodable {
+    let file: String
+}

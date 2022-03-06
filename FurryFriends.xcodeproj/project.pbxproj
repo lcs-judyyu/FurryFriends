@@ -11,6 +11,7 @@
 		5A5D4BFE27CD1A1500507AAE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5A5D4BFD27CD1A1500507AAE /* Lottie */; };
 		5A5D4C0027CD1A4100507AAE /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D4BFF27CD1A4100507AAE /* LottieView.swift */; };
 		5A5D4C0227CD1AA500507AAE /* 84830-like-no-background.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D4C0127CD1AA500507AAE /* 84830-like-no-background.json */; };
+		5A93431927D451A20036E7A5 /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A93431827D451A20036E7A5 /* CatView.swift */; };
 		8134B14527CA4862004DEB85 /* FurryFriendsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B14427CA4862004DEB85 /* FurryFriendsApp.swift */; };
 		8134B14727CA4862004DEB85 /* DogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B14627CA4862004DEB85 /* DogView.swift */; };
 		8134B14927CA4863004DEB85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8134B14827CA4863004DEB85 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 		5A5D4BF927CD0F3800507AAE /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		5A5D4BFF27CD1A4100507AAE /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		5A5D4C0127CD1AA500507AAE /* 84830-like-no-background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "84830-like-no-background.json"; sourceTree = "<group>"; };
+		5A93431827D451A20036E7A5 /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 		8134B14127CA4862004DEB85 /* FurryFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FurryFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8134B14427CA4862004DEB85 /* FurryFriendsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FurryFriendsApp.swift; sourceTree = "<group>"; };
 		8134B14627CA4862004DEB85 /* DogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				8134B14627CA4862004DEB85 /* DogView.swift */,
+				5A93431827D451A20036E7A5 /* CatView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				5A5D4C0027CD1A4100507AAE /* LottieView.swift in Sources */,
 				8134B15427CA55F4004DEB85 /* RemoteImageView.swift in Sources */,
 				8134B14527CA4862004DEB85 /* FurryFriendsApp.swift in Sources */,
+				5A93431927D451A20036E7A5 /* CatView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
