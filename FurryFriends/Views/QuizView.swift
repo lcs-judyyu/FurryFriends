@@ -22,11 +22,36 @@ struct QuizView: View {
     
     @State var currentCatImageSelected: Bool = false
     
+    @State var startQuiz: Bool = false
+    
+    @State var questionNumber: Int = 0
+    
     
     var body: some View {
         ZStack {
             Color.yellow.opacity(0.2)
                 .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text("🐕  🐩")
+                    .font(.system(size: 80))
+                
+                //button to start the quiz
+                Button(action: {
+                   startQuiz = true
+                    
+                }, label: {
+                    Text("Start Quiz")
+                        .font(.largeTitle)
+                })
+                    .buttonStyle(GrowingButton())
+                    .padding(.vertical, 40)
+                
+                Text("🐈  🐈‍⬛")
+                    .font(.system(size: 80))
+            }
+            .padding(.bottom, 20)
+            .opacity(startQuiz == false ? 1.0 : 0.0)
             
             VStack {
                 RemoteImageView(fromURL: currentDogImage)
@@ -46,6 +71,7 @@ struct QuizView: View {
                     }
             }
             .padding(.bottom, 20)
+            .opacity(startQuiz == true ? 1.0 : 0.0)
             
             VStack {
                 Text("")
