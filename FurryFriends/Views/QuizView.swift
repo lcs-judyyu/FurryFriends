@@ -24,7 +24,7 @@ struct QuizView: View {
     
     @State var startQuiz: Bool = false
     
-    @State var questionNumber: Int = 0
+    @State var questionNumber: Int = 1
     
     
     var body: some View {
@@ -62,6 +62,27 @@ struct QuizView: View {
                         currentCatImageSelected = false
                     }
                 
+                //Button for submitting choices
+                Button(action: {
+                    questionNumber += 1
+                    
+                    currentDogImageSelected = false
+                    currentCatImageSelected = false
+                    
+                    Task {
+                        // Call functions to get new images
+                        await loadNewDogImage()
+                        
+                        await loadNewCatImage()
+                    }
+                    
+                }, label: {
+                    Text("Submit")
+                        .font(.title2)
+                })
+                    .buttonStyle(GrowingButton())
+                    .disabled(currentDogImageSelected == false && currentCatImageSelected == false ? true : false)
+                
                 RemoteImageView(fromURL: currentCatImage)
                     .padding(15)
                     .border(currentCatImageSelected == true ? Color("pinkLike") : Color("pinkNotLike"), width: 4)
@@ -82,7 +103,7 @@ struct QuizView: View {
             
             await loadNewCatImage()
         }
-        .navigationTitle("🐶 or 🐱 ?")
+        .navigationTitle(startQuiz == true ? "🐶 or 🐱 ?              \(questionNumber) / 10" : "🐶 or 🐱")
     }
     // MARK: Functions
     //create a funtion to load new dog image
