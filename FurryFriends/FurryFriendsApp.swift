@@ -52,6 +52,26 @@ struct FurryFriendsApp: App {
                     Text("Cats")
                 }
                 
+                NavigationView {
+                    ZStack {
+                        QuizView()
+                        
+                        VStack {
+                            Spacer()
+                                .frame(maxHeight: .infinity)
+                            
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(height: 10)
+                                .background(Color.orange.opacity(0.2))
+                        }
+                    }
+                }
+                .tabItem {
+                    Image(systemName: "chart.pie")
+                    Text("Quiz")
+                }
+                
             }
         }
     }
