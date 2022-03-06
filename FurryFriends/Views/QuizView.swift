@@ -113,16 +113,16 @@ struct QuizView: View {
             VStack {
                 if dogIsSelected > 5 {
                     Text("You are a ") +
-                    Text("DOG 🐶").underline().font(.largeTitle)
+                    Text("DOG 🐶").underline().font(.largeTitle) +
                     Text(" person")
                 } else if dogIsSelected == 5 {
-                    Text("You like both ")
-                    Text("DOG 🐶").underline().font(.largeTitle)
-                    Text(" and ")
+                    Text("You like both ") +
+                    Text("DOG 🐶").underline().font(.largeTitle) +
+                    Text(" and ") +
                     Text("CAT 🐱").underline().font(.largeTitle)
                 } else {
-                    Text("You are a ")
-                    Text("CAT 🐱").underline().font(.largeTitle)
+                    Text("You are a ") +
+                    Text("CAT 🐱").underline().font(.largeTitle) +
                     Text(" person")
                 }
             }
