@@ -13,20 +13,43 @@ struct FurryFriendsApp: App {
         WindowGroup {
             TabView {
                 NavigationView {
-                    
-                    DogView()
+                    ZStack {
+                        DogView()
+                        
+                        VStack {
+                            Spacer()
+                                .frame(maxHeight: .infinity)
+                            
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(height: 10)
+                                .background(Color.orange.opacity(0.2))
+                        }
+                    }
                 }
                 .tabItem {
                     Image(systemName: "pawprint")
-                    Text("🐶")
+                    Text("Dogs")
                 }
                 
                 NavigationView {
-                    CatView()
+                    ZStack {
+                        CatView()
+                        
+                        VStack {
+                            Spacer()
+                                .frame(maxHeight: .infinity)
+                            
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(height: 10)
+                                .background(Color.orange.opacity(0.2))
+                        }
+                    }
                 }
                 .tabItem {
-                    Image(systemName: "pawprint.circle")
-                    Text("🐱")
+                    Image(systemName: "pawprint.fill")
+                    Text("Cats")
                 }
                 
             }
