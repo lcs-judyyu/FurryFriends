@@ -26,6 +26,11 @@ struct QuizView: View {
     
     @State var questionNumber: Int = 1
     
+    //track the time each animal is selected
+    @State var dogIsSelected: Int = 0
+    
+    @State var catIsSelected: Int = 0
+    
     
     var body: some View {
         ZStack {
@@ -69,6 +74,12 @@ struct QuizView: View {
                     currentDogImageSelected = false
                     currentCatImageSelected = false
                     
+                    if currentDogImageSelected == true {
+                        catIsSelected += 1
+                    } else {
+                        dogIsSelected += 1
+                    }
+                    
                     Task {
                         // Call functions to get new images
                         await loadNewDogImage()
@@ -82,6 +93,7 @@ struct QuizView: View {
                 })
                     .buttonStyle(GrowingButton())
                     .disabled(currentDogImageSelected == false && currentCatImageSelected == false ? true : false)
+                    .background(currentDogImageSelected == false && currentCatImageSelected == false ? .gray.opacity(0.4) : .orange.opacity(0.4))
                 
                 RemoteImageView(fromURL: currentCatImage)
                     .padding(15)
@@ -95,7 +107,13 @@ struct QuizView: View {
             .opacity(startQuiz == true ? 1.0 : 0.0)
             
             VStack {
-                Text("")
+                if dogIsSelected > 5 {
+                    Text("")
+                } else if dogIsSelected == 5 {
+                    Text("")
+                } else {
+                    Text("")
+                }
             }
         }
         .task {
@@ -103,7 +121,7 @@ struct QuizView: View {
             
             await loadNewCatImage()
         }
-        .navigationTitle(startQuiz == true ? "🐶 or 🐱 ?              \(questionNumber) / 10" : "🐶 or 🐱")
+        .navigationTitle(startQuiz == true ? "🐶 or 🐱 ?               \(questionNumber) / 10" : "🐶 or 🐱")
     }
     // MARK: Functions
     //create a funtion to load new dog image
