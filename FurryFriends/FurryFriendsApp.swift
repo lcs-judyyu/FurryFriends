@@ -12,16 +12,23 @@ struct FurryFriendsApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
+                NavigationView {
+                    
+                    DogView()
+                }
+                .tabItem {
+                    Image(systemName: "pawprint")
+                    Text("🐶")
+                }
                 
-                DogView()
-                    .tabItem {
-                        Text("🐶")
-                    }
+                NavigationView {
+                    CatView()
+                }
+                .tabItem {
+                    Image(systemName: "pawprint.circle")
+                    Text("🐱")
+                }
                 
-                CatView()
-                    .tabItem {
-                        Text("🐱")
-                    }
             }
         }
     }
