@@ -28,6 +28,8 @@ struct GrowingButton: ButtonStyle {
 struct DogView: View {
     
     // MARK: Stored properties
+    //Detect when app moves between foreground, background, and inactive atates
+    @Environment(\.scenePhase) var scenePhase
     
     // Address for main image
     // Starts as a transparent pixel – until an address for an animal's image is set
@@ -86,7 +88,7 @@ struct DogView: View {
                                 // Only add to the list if it is not already there
                                 if currentImageAddedToFavourites == false {
                                     if favourites.contains(currentImageURL) {
-
+                                        
                                         currentImageAddedToFavourites = false
                                         
                                     } else {
@@ -104,8 +106,8 @@ struct DogView: View {
                                     currentImageAddedToFavourites = false
                                 }
                             }
-                        }
                     }
+                }
                 
                 HStack {
                     Text("Favourites")
@@ -158,7 +160,7 @@ struct DogView: View {
             }
             // Runs once when the app is opened
             .task {
-        
+                
                 // Example images for dog
                 //let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
                 
@@ -167,6 +169,21 @@ struct DogView: View {
                 
                 print("I tried to load a new image")
                 
+                //load favourites from saved file
+                loadFavourites()
+                
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive {
+                    print("Inactive")
+                } else if newPhase == .active{
+                    print("Active")
+                } else {
+                    print("Background")
+                    
+                    //permanently save the favourite list
+                    persistFavourites()
+                }
             }
             .navigationTitle("Dogs 🐶")
         }
@@ -219,8 +236,63 @@ struct DogView: View {
     
     //a function to delete items in the list
     func delete(at offsets: IndexSet) {
-            favourites.remove(atOffsets: offsets)
+        favourites.remove(atOffsets: offsets)
+    }
+    
+    //save data permanently
+    func persistFavourites() {
+        //get a location to save data
+        let filename = getDocumentsDirectory().appendingPathComponent(savedFavouriteDogsLabel)
+        print(filename)
+        
+        //try to encodr data to JSON
+        do {
+            let encoder = JSONEncoder()
+            
+            //configure the encoder to "pretty print" the JSON
+            encoder.outputFormatting = .prettyPrinted
+            
+            //Encode the list of favourites
+            let data = try encoder.encode(favourites)
+            
+            //write JSON to a file in the filename location
+            try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+            
+            //see the data
+            print("Save data to the document directory successfully.")
+            print("=========")
+            print(String(data: data, encoding: .utf8)!)
+            
+        } catch {
+            print("Unable to write list of favourites to the document directory")
+            print("=========")
+            print(error.localizedDescription)
         }
+    }
+
+    //function for reloading the list of favourites
+    func loadFavourites() {
+        let filename = getDocumentsDirectory().appendingPathComponent(savedFavouriteDogsLabel)
+        print(filename)
+        
+        do {
+            //load raw data
+            let data = try Data(contentsOf: filename)
+            
+            print("Save data to the document directory successfully.")
+            print("=========")
+            print(String(data: data, encoding: .utf8)!)
+            
+            //decode JSON into Swift native data structures
+            //NOTE: [] are used since we load into an array
+            favourites = try JSONDecoder().decode([DogImage].self, from: data)
+            
+        } catch {
+            print("Could not loas the data from the stored JSON file")
+            print("=========")
+            print(error.localizedDescription)
+        }
+    }
 }
 
 struct DogView_Previews: PreviewProvider {

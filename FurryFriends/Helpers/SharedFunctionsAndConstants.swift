@@ -8,7 +8,7 @@
 import Foundation
 
 //return the location of the Documents directory for the app
-func getDocumentsDirectoryForDogs() -> URL{
+func getDocumentsDirectory() -> URL{
     let paths = FileManager.default.urls(for: .documentDirectory,
                                             in: .userDomainMask)
     
