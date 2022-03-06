@@ -88,14 +88,7 @@ struct CatView: View {
                     }
                 }
                 
-                HStack {
-                    Text("Favourites")
-                        .bold()
-                        .padding(.leading)
-                        .padding(.bottom, 10)
-                    
-                    Spacer()
-                }
+                FavouritesTitleView()
                 
                 // Iterate over the list of favourites
                 // each individual favourite is accessible via "currentFavourite"
