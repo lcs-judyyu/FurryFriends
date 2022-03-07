@@ -24,6 +24,7 @@ struct QuizView: View {
     
     @State var startQuiz: Bool = false
     
+    //track the number of questions
     @State var questionNumber: Int = 1
     
     //track the time each animal is selected
@@ -34,6 +35,7 @@ struct QuizView: View {
     
     var body: some View {
         ZStack {
+            //background colour
             Color.yellow.opacity(0.2)
                 .edgesIgnoringSafeArea(.all)
             
@@ -43,7 +45,7 @@ struct QuizView: View {
                 
                 //button to start the quiz
                 Button(action: {
-                   startQuiz = true
+                    startQuiz = true
                     
                 }, label: {
                     Text("Start Quiz")
@@ -116,6 +118,7 @@ struct QuizView: View {
                     .scaledToFit()
                     .frame(height: 200)
                 
+                //display different messages based on users's choices
                 if dogIsSelected > 5 {
                     Text("You are a ") +
                     Text("DOG 🐶").underline().font(.largeTitle) +
@@ -133,16 +136,18 @@ struct QuizView: View {
                 
                 //button to retake the quiz
                 Button(action: {
-                   startQuiz = true
                     
+                    startQuiz = true
+                    
+                    //reset values
                     currentDogImageSelected = false
                     currentCatImageSelected = false
                     
                     questionNumber = 1
                     
-                dogIsSelected = 0
-                
-                catIsSelected = 0
+                    dogIsSelected = 0
+                    
+                    catIsSelected = 0
                     
                 }, label: {
                     Text("Retake Quiz")
@@ -153,16 +158,18 @@ struct QuizView: View {
                 
                 //button to returm to main page
                 Button(action: {
-                   startQuiz = false
                     
+                    startQuiz = false
+                    
+                    //reset values
                     currentDogImageSelected = false
                     currentCatImageSelected = false
                     
                     questionNumber = 1
                     
-                dogIsSelected = 0
-                
-                catIsSelected = 0
+                    dogIsSelected = 0
+                    
+                    catIsSelected = 0
                     
                 }, label: {
                     Text("Back to Home")
