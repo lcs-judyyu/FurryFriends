@@ -55,7 +55,7 @@ struct QuizView: View {
                 Text("🐈  🐈‍⬛")
                     .font(.system(size: 80))
             }
-            .padding(.bottom, 20)
+            .padding(.bottom, 40)
             .opacity(startQuiz == false && questionNumber == 1 ? 1.0 : 0.0)
             
             VStack {
@@ -70,9 +70,6 @@ struct QuizView: View {
                 //Button for submitting choices
                 Button(action: {
                     questionNumber += 1
-                    
-                    currentDogImageSelected = false
-                    currentCatImageSelected = false
                     
                     if currentDogImageSelected == true {
                         dogIsSelected += 1
@@ -90,6 +87,9 @@ struct QuizView: View {
                         
                         await loadNewCatImage()
                     }
+                    
+                    currentDogImageSelected = false
+                    currentCatImageSelected = false
                     
                 }, label: {
                     Text("Submit")
@@ -111,6 +111,10 @@ struct QuizView: View {
             .opacity(startQuiz == true && questionNumber < 11 ? 1.0 : 0.0)
             
             VStack {
+                //ocean
+                LottieView(animationNamed: "84830-like-no-background")
+                    .padding()
+                
                 if dogIsSelected > 5 {
                     Text("You are a ") +
                     Text("DOG 🐶").underline().font(.largeTitle) +
@@ -125,8 +129,48 @@ struct QuizView: View {
                     Text("CAT 🐱").underline().font(.largeTitle) +
                     Text(" person")
                 }
+                
+                //button to retake the quiz
+                Button(action: {
+                   startQuiz = true
+                    
+                    currentDogImageSelected = false
+                    currentCatImageSelected = false
+                    
+                    questionNumber = 1
+                    
+                dogIsSelected = 0
+                
+                catIsSelected = 0
+                    
+                }, label: {
+                    Text("Retake Quiz")
+                        .font(.title)
+                })
+                    .buttonStyle(GrowingButton())
+                    .padding(.vertical, 40)
+                
+                //button to returm to main page
+                Button(action: {
+                   startQuiz = false
+                    
+                    currentDogImageSelected = false
+                    currentCatImageSelected = false
+                    
+                    questionNumber = 1
+                    
+                dogIsSelected = 0
+                
+                catIsSelected = 0
+                    
+                }, label: {
+                    Text("Back to Home")
+                        .font(.title)
+                })
+                    .buttonStyle(GrowingButton())
             }
             .font(.title)
+            .multilineTextAlignment(.center)
             .opacity(startQuiz == false && questionNumber > 10 ? 1.0 : 0.0)
         }
         .task {
