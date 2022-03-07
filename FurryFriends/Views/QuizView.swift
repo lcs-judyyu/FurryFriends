@@ -113,7 +113,8 @@ struct QuizView: View {
             VStack {
                 //ocean
                 LottieView(animationNamed: "84830-like-no-background")
-                    .padding()
+                    .scaledToFit()
+                    .frame(height: 200)
                 
                 if dogIsSelected > 5 {
                     Text("You are a ") +
